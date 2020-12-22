@@ -1,5 +1,11 @@
 parameters:
   kapitan:
+    dependencies:
+      - type: helm
+        output_path: dependencies/minio/helmcharts/minio
+        source: https://helm.min.io
+        version: ${minio:charts:minio}
+        chart_name: minio
     compile:
       - input_paths:
           - minio/component/app.jsonnet
@@ -8,5 +14,17 @@ parameters:
       - input_paths:
           - minio/component/main.jsonnet
         input_type: jsonnet
+        output_path: minio/${_instance}
+      - input_paths:
+          - minio/component/ns.jsonnet
+        input_type: jsonnet
         output_path: minio/
-
+      - output_path: minio/${_instance}/10_minio_helmchart
+        input_type: helm
+        output_type: yaml
+        input_paths:
+          - minio/helmcharts/minio
+        helm_values: ${minio:helmValues}
+        helm_params:
+          release_name: minio-${_instance}
+          namespace: "${minio:namespace}"

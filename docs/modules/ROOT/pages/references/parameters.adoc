@@ -2,18 +2,53 @@
 
 The parent key for all of the following parameters is `minio`.
 
+
 == `namespace`
 
 [horizontal]
 type:: string
 default:: `syn-minio`
 
-The namespace in which to deploy this component.
 
 
-== Example
+== `adminCredentials.secretName`
 
-[source,yaml]
-----
-namespace: example-namespace
-----
+[horizontal]
+type:: string
+default:: `admin-credentials-${_instance}`
+
+== `adminCredentials.acessKey`
+
+[horizontal]
+type:: string
+default:: Vault reference
+
+A vault reference pointing to the Vault secret containing the access key.
+If the key isn't provided as a vault reference, the secret key must be provided in its base64 encoded form.
+It can be generated using the command `echo -n '<myAccessKey> | base64`.
+
+== `adminCredentials.secretKey`
+
+[horizontal]
+type:: string
+default:: Vault reference
+
+A vault reference pointing to the Vault secret containing the access key.
+If the key isn't provided as a vault reference, the secret key must be provided in its base64 encoded form.
+It can be generated using the command `echo -n '<mySecretKey> | base64`.
+
+== `helmValues`
+
+[horizontal]
+type:: hash
+
+A hash of helm values to set.
+
+== `charts.minio`
+
+[horizontal]
+type:: helm chart version
+default:: 4.1.6
+
+A specific chart version. See the https://kapitan.dev/external_dependencies/#helm-type[kapitan documentation] for more information.
+

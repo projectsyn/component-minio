@@ -1,5 +1,15 @@
-= minio
+= Minio: A Commodore component to manage Minio
 
-minio is a Commodore component to manage minio.
+{doctitle} is a Commodore component for Managing Minio.
+The component is based on the https://hub.kubeapps.com/charts/bitnami/minio[Helm Chart] of Bitnami.
 
 See the xref:references/parameters.adoc[parameters] reference for further details.
+
+== Prerequisites
+
+An accessKey and secretKey must be generated and stored inside the secret key management.
+
+{source,console}
+----
+vault kv put -cas=0 clusters/kv/${TENANT_ID}/${CLUSTER_ID}/minio <instance_name>-accesskey=<enter S3/Azure Access Key here> <instannce_name>-secretkey=<enter S3/Azure Secret here>
+----

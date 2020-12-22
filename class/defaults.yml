@@ -1,3 +1,20 @@
 parameters:
   minio:
+    multi_instance: true
     namespace: syn-minio
+    charts:
+      minio: 8.0.0
+    adminCredentials:
+      secretName: admin-credentials-${_instance}
+      accessKey: ?{vaultkv:${customer:name}/${cluster:name}/minio/${_instance}-accesskey}
+      secretKey: ?{vaultkv:${customer:name}/${cluster:name}/minio/${_instance}-secretkey}
+    helmValues:
+      existingSecret: ${minio:adminCredentials:secretName}
+      azuregateway:
+        enabled: true
+        replicas: 2
+      persistence:
+        enabled: false
+      resources:
+        requests:
+          memory: '500Mi'
