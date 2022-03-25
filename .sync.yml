@@ -1,0 +1,6 @@
+:global:
+  componentName: minio
+
+docs/antora.yml:
+  name: minio
+  title: minio
