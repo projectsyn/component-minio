@@ -26,5 +26,5 @@ parameters:
           - minio/helmcharts/minio
         helm_values: ${minio:helmValues}
         helm_params:
-          release_name: minio-${_instance}
+          name: minio-${_instance}
           namespace: "${minio:namespace}"
