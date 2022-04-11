@@ -7,8 +7,8 @@ parameters:
       minio: 8.0.0
     adminCredentials:
       secretName: admin-credentials-${_instance}
-      accessKey: ?{vaultkv:${customer:name}/${cluster:name}/minio/${_instance}-accesskey}
-      secretKey: ?{vaultkv:${customer:name}/${cluster:name}/minio/${_instance}-secretkey}
+      accessKey: ?{vaultkv:${cluster:tenant}/${cluster:name}/minio/${_instance}-accesskey}
+      secretKey: ?{vaultkv:${cluster:tenant}/${cluster:name}/minio/${_instance}-secretkey}
     helmValues:
       existingSecret: ${minio:adminCredentials:secretName}
       azuregateway:
