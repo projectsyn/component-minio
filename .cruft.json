@@ -1,6 +1,6 @@
 {
   "template": "https://github.com/projectsyn/commodore-component-template.git",
-  "commit": "fc8ae18a6798d5b232442630883e5ec9b8636d09",
+  "commit": "c0b936bd6ce4f7bfefa50fc876431ffbd9e8cdd2",
   "checkout": "main",
   "context": {
     "cookiecutter": {
@@ -10,11 +10,11 @@
       "test_cases": "defaults",
       "add_lib": "n",
       "add_pp": "n",
-      "add_golden": "n",
-      "add_matrix": "n",
+      "add_golden": "y",
+      "add_matrix": "y",
       "add_go_unit": "n",
       "copyright_holder": "VSHN AG <info@vshn.ch>",
-      "copyright_year": "2021",
+      "copyright_year": "2023",
       "github_owner": "projectsyn",
       "github_name": "component-minio",
       "github_url": "https://github.com/projectsyn/component-minio",

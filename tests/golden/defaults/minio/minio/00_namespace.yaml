@@ -3,5 +3,8 @@ kind: Namespace
 metadata:
   annotations: {}
   labels:
+    app: minio
+    app.kubernetes.io/instance: minio-minio
+    app.kubernetes.io/name: minio-minio
     name: syn-minio
   name: syn-minio

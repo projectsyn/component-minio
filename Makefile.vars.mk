@@ -1,9 +1,3 @@
-#
-# File managed by ModuleSync - Do Not Edit
-#
-# Additional Makefiles can be added to `.sync.yml` in 'Makefile.includes'
-#
-
 # The component name is hard-coded from the template
 COMPONENT_NAME ?= minio
 
@@ -11,7 +5,7 @@ git_dir         ?= $(shell git rev-parse --git-common-dir)
 compiled_path   ?= compiled/$(COMPONENT_NAME)/$(COMPONENT_NAME)
 root_volume     ?= -v "$${PWD}:/$(COMPONENT_NAME)"
 compiled_volume ?= -v "$${PWD}/$(compiled_path):/$(COMPONENT_NAME)"
-commodore_args  ?= --search-paths ./dependencies --search-paths . -n $(COMPONENT_NAME)
+commodore_args  ?= --search-paths . -n $(COMPONENT_NAME)
 
 ifneq "$(git_dir)" ".git"
 	git_volume        ?= -v "$(git_dir):$(git_dir):ro"
@@ -48,6 +42,12 @@ ANTORA_PREVIEW_CMD ?= $(DOCKER_CMD) run --rm --publish 35729:35729 --publish 202
 COMMODORE_CMD  ?= $(DOCKER_CMD) $(DOCKER_ARGS) $(git_volume) $(root_volume) docker.io/projectsyn/commodore:latest
 COMPILE_CMD    ?= $(COMMODORE_CMD) component compile . $(commodore_args)
 JB_CMD         ?= $(DOCKER_CMD) $(DOCKER_ARGS) --entrypoint /usr/local/bin/jb docker.io/projectsyn/commodore:latest install
+GOLDEN_FILES    ?= $(shell find tests/golden/$(instance) -type f)
+
+KUBENT_FILES    ?= $(shell echo "$(GOLDEN_FILES)" | sed 's/ /,/g')
+KUBENT_ARGS     ?= -c=false --helm3=false -e
+KUBENT_IMAGE    ?= ghcr.io/doitintl/kube-no-trouble:latest
+KUBENT_DOCKER   ?= $(DOCKER_CMD) $(DOCKER_ARGS) $(root_volume) --entrypoint=/app/kubent $(KUBENT_IMAGE)
 
 GOLDEN_FILES    ?= $(shell find tests/golden/$(instance) -type f)
 

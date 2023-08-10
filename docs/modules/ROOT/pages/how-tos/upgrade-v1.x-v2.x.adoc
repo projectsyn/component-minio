@@ -1,0 +1,20 @@
+= Upgrade from v1.x to v2.x
+
+With the upgrade from v1.x to v2.x the helm chart used for minio has changed.
+
+This will cause a few changes in the manifests because of this.
+Further more some parameters have been deprecated:
+
+== Deprecated parameters
+
+=== `adminCredentials.accessKey`
+This parameter has been replaced in favor of `adminCredentials.rootUser`
+
+=== `adminCredentials.secretKey`
+This parameter has been replaced in favor of `adminCredentials.rootPassword`
+
+== Changed helmValues
+Because the helm chart was changed,
+some parameters might not be available anymore.
+
+Please refer to the https://github.com/minio/minio/blob/master/helm/minio/values.yaml[official helm chart] for the available values.

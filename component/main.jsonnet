@@ -16,6 +16,22 @@ local namespace = kube.Namespace(params.namespace) {
   },
 };
 
+local rootUser =
+  if std.objectHas(params.adminCredentials, 'accessKey') then
+    std.trace(
+      'parameter `adminCredentials.accessKey` is deprecated, please use parameter `adminCredentials.rootUser` instead',
+      params.adminCredentials.accessKey
+    )
+  else params.adminCredentials.rootUser;
+
+local rootPassword =
+  if std.objectHas(params.adminCredentials, 'secretKey') then
+    std.trace(
+      'parameter `adminCredentials.secretKey` is deprecated, please use parameter `adminCredentials.rootPassword` instead',
+      params.adminCredentials.secretKey
+    )
+  else params.adminCredentials.rootPassword;
+
 local adminCredentials = kube.Secret(params.adminCredentials.secretName) {
   metadata+: {
     namespace: params.namespace,
@@ -23,12 +39,13 @@ local adminCredentials = kube.Secret(params.adminCredentials.secretName) {
   // need to use stringData here for secret reveal to work
   // use keys which bitnami/minio Helm chart expects for the credentials secret
   stringData+: {
-    accesskey: params.adminCredentials.accessKey,
-    secretkey: params.adminCredentials.secretKey,
+    rootUser: rootUser,
+    rootPassword: rootPassword,
   },
 };
 
 // Define outputs below
 {
+  '00_namespace': namespace,
   '01_adminCredentials': adminCredentials,
 }

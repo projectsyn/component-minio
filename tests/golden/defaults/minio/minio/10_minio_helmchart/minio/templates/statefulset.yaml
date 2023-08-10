@@ -1,0 +1,86 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: minio
+    chart: minio-5.0.13
+    heritage: Helm
+    release: minio-minio
+  name: minio-minio-svc
+spec:
+  clusterIP: None
+  ports:
+    - name: http
+      port: 9000
+      protocol: TCP
+      targetPort: 9000
+  publishNotReadyAddresses: true
+  selector:
+    app: minio
+    release: minio-minio
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    app: minio
+    chart: minio-5.0.13
+    heritage: Helm
+    release: minio-minio
+  name: minio-minio
+spec:
+  podManagementPolicy: Parallel
+  replicas: 2
+  selector:
+    matchLabels:
+      app: minio
+      release: minio-minio
+  serviceName: minio-minio-svc
+  template:
+    metadata:
+      annotations:
+        checksum/config: 51fd2c8b12326377a0526f853fdcb48ffb5807fc519641cd2ef8a01559c6af24
+        checksum/secrets: 01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b
+      labels:
+        app: minio
+        release: minio-minio
+      name: minio-minio
+    spec:
+      containers:
+        - command:
+            - /bin/sh
+            - -ce
+            - /usr/bin/docker-entrypoint.sh minio server  http://minio-minio-{0...1}.minio-minio-svc.syn-minio.svc.cluster.local/export
+              -S /etc/minio/certs/ --address :9000 --console-address :9001
+          env:
+            - name: MINIO_ROOT_USER
+              valueFrom:
+                secretKeyRef:
+                  key: rootUser
+                  name: admin-credentials-minio
+            - name: MINIO_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: rootPassword
+                  name: admin-credentials-minio
+            - name: MINIO_PROMETHEUS_AUTH_TYPE
+              value: public
+          image: quay.io/minio/minio:RELEASE.2023-07-07T07-13-57Z
+          imagePullPolicy: IfNotPresent
+          name: minio
+          ports:
+            - containerPort: 9000
+              name: http
+            - containerPort: 9001
+              name: http-console
+          resources:
+            requests:
+              memory: 500Mi
+          volumeMounts: null
+      serviceAccountName: minio-sa
+      volumes:
+        - name: minio-user
+          secret:
+            secretName: admin-credentials-minio
+  updateStrategy:
+    type: RollingUpdate

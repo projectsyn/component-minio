@@ -3,16 +3,16 @@ kind: Service
 metadata:
   labels:
     app: minio
-    chart: minio-8.0.0
+    chart: minio-5.0.13
     heritage: Helm
     release: minio-minio
-  name: minio-minio
+  name: minio-minio-console
 spec:
   ports:
     - name: http
-      port: 9000
+      port: 9001
       protocol: TCP
-      targetPort: 9000
+      targetPort: 9001
   selector:
     app: minio
     release: minio-minio

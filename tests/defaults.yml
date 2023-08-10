@@ -1,2 +1,7 @@
+# Overwrite parameters here
+
 parameters:
-  minio: {}
+  minio:
+    adminCredentials:
+      rootUser: admin
+      rootPassword: FooBar@123

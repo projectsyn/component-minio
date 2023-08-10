@@ -1,2 +1,7 @@
 * xref:index.adoc[Home]
+
+.How-to guides
+* xref:how-tos/upgrade-v1.x-v2.x.adoc[Upgrade from v1.x-v2.x]
+
+.Technical reference
 * xref:references/parameters.adoc[Parameters]

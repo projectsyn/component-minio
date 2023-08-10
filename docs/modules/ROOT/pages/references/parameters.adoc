@@ -17,25 +17,21 @@ default:: `syn-minio`
 type:: string
 default:: `admin-credentials-${_instance}`
 
-== `adminCredentials.acessKey`
+== `adminCredentials.rootUser`
 
 [horizontal]
 type:: string
 default:: Vault reference
 
-A vault reference pointing to the Vault secret containing the access key.
-If the key isn't provided as a vault reference, the secret key must be provided in its base64 encoded form.
-It can be generated using the command `echo -n '<myAccessKey> | base64`.
+A vault reference pointing to the Vault secret containing the rootUser or a string with the username for the admin user
 
-== `adminCredentials.secretKey`
+== `adminCredentials.rootPassword`
 
 [horizontal]
 type:: string
 default:: Vault reference
 
-A vault reference pointing to the Vault secret containing the access key.
-If the key isn't provided as a vault reference, the secret key must be provided in its base64 encoded form.
-It can be generated using the command `echo -n '<mySecretKey> | base64`.
+A vault reference pointing to the Vault secret containing the rootPassword or a string with the password for the admin user.
 
 == `helmValues`
 
@@ -44,11 +40,9 @@ type:: hash
 
 A hash of helm values to set.
 
-== `charts.minio`
+== `charts`
 
 [horizontal]
-type:: helm chart version
-default:: 4.1.6
-
-A specific chart version. See the https://kapitan.dev/external_dependencies/#helm-type[kapitan documentation] for more information.
+type:: dict
+default:: https://github.com/projectsyn/component-minio/blob/master/class/defaults.yml[See `class/defaults.yml`]
 
