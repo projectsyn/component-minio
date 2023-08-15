@@ -1,0 +1,17 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  labels:
+    app: minio-update-prometheus-secret
+    chart: minio-8.0.0
+    heritage: Helm
+    release: minio-minio
+  name: minio-minio-update-prometheus-secret
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: minio-minio-update-prometheus-secret
+subjects:
+  - kind: ServiceAccount
+    name: minio-minio-update-prometheus-secret
+    namespace: syn-minio

@@ -49,4 +49,12 @@ COMMODORE_CMD  ?= $(DOCKER_CMD) $(DOCKER_ARGS) $(git_volume) $(root_volume) dock
 COMPILE_CMD    ?= $(COMMODORE_CMD) component compile . $(commodore_args)
 JB_CMD         ?= $(DOCKER_CMD) $(DOCKER_ARGS) --entrypoint /usr/local/bin/jb docker.io/projectsyn/commodore:latest install
 
+GOLDEN_FILES    ?= $(shell find tests/golden/$(instance) -type f)
+
+KUBENT_FILES    ?= $(shell echo "$(GOLDEN_FILES)" | sed 's/ /,/g')
+KUBENT_ARGS     ?= -c=false --helm3=false -e
+KUBENT_IMAGE    ?= ghcr.io/doitintl/kube-no-trouble:latest
+KUBENT_DOCKER   ?= $(DOCKER_CMD) $(DOCKER_ARGS) $(root_volume) --entrypoint=/app/kubent $(KUBENT_IMAGE)
+
 instance ?= defaults
+test_instances = tests/defaults.yml
