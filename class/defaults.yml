@@ -4,7 +4,7 @@ parameters:
       multi_instance: true
     namespace: syn-minio
     charts:
-      minio: 8.0.0
+      minio: 8.0.10
     adminCredentials:
       secretName: admin-credentials-${_instance}
       accessKey: ?{vaultkv:${cluster:tenant}/${cluster:name}/minio/${_instance}-accesskey}
