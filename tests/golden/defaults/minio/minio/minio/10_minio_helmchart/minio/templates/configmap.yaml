@@ -4,7 +4,7 @@ data:
     #!/bin/sh
     set -e ; # Have script exit in the event of a failed command.
     MC_CONFIG_DIR="/etc/minio/mc/"
-    MC="/usr/bin/mc --config-dir ${MC_CONFIG_DIR}"
+    MC="/usr/bin/mc --insecure --config-dir ${MC_CONFIG_DIR}"
 
     # connectToMinio
     # Use a check-sleep-check loop to wait for Minio service to be available
@@ -97,7 +97,7 @@ kind: ConfigMap
 metadata:
   labels:
     app: minio
-    chart: minio-8.0.0
+    chart: minio-8.0.10
     heritage: Helm
     release: minio-minio
   name: minio-minio

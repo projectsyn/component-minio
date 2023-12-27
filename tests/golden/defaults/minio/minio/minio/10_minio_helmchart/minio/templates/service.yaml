@@ -3,7 +3,7 @@ kind: Service
 metadata:
   labels:
     app: minio
-    chart: minio-8.0.0
+    chart: minio-8.0.10
     heritage: Helm
     release: minio-minio
   name: minio-minio
