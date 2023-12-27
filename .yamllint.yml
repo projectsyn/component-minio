@@ -26,3 +26,4 @@ ignore: |
   manifests/
   vendor/
   compiled/
+  charts/

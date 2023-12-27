@@ -1,11 +1,11 @@
 parameters:
   kapitan:
-    dependencies:
-      - type: helm
-        output_path: dependencies/minio/helmcharts/minio
-        source: https://helm.min.io
-        version: ${minio:charts:minio}
-        chart_name: minio
+    # dependencies:
+    #   - type: helm
+    #     output_path: dependencies/minio/helmcharts/minio
+    #     source: https://charts.min.io
+    #     version: ${minio:charts:minio}
+    #     chart_name: minio
     compile:
       - input_paths:
           - minio/component/app.jsonnet
@@ -23,7 +23,7 @@ parameters:
         input_type: helm
         output_type: yaml
         input_paths:
-          - minio/helmcharts/minio
+          - minio/charts/minio
         helm_values: ${minio:helmValues}
         helm_params:
           name: minio-${_instance}
