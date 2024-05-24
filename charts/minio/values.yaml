@@ -32,7 +32,7 @@ mcImage:
 ##
 helmKubectlJqImage:
   repository: bskim45/helm-kubectl-jq
-  tag: 3.1.0
+  tag: 3.1.3
   pullPolicy: IfNotPresent
 
 ## minio server mode, i.e. standalone or distributed.
