@@ -2,6 +2,7 @@ parameters:
   minio:
     =_metadata:
       multi_instance: true
+      multi_tenant: true
     namespace: syn-minio
     charts:
       minio: 8.0.0
