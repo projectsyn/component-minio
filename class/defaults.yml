@@ -3,6 +3,12 @@ parameters:
     =_metadata:
       multi_instance: true
       multi_tenant: true
+      deprecated: true
+      deprecation_notice: >-
+        This component is deprecated and will no longer be updated.
+        For backups to Azure Blob Storage, use the native Azure backend of K8up instead,
+        e.g. `backend_type: azure` in component cluster-backup.
+        See https://hub.syn.tools/cluster-backup/references/parameters.html#_azure
     namespace: syn-minio
     charts:
       minio: 8.0.0

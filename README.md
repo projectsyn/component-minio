@@ -1,3 +1,9 @@
+# :warning: Repo Archive Notice
+
+As of October 14, 2026, this component is deprecated and will no longer be updated.
+For backups to Azure Blob Storage, use the native Azure backend of K8up instead of the MinIO Azure gateway, e.g.
+`backend_type: azure` in component cluster-backup.
+
 # Commodore Component: minio
 
 This is a [Commodore][commodore] Component for minio.
